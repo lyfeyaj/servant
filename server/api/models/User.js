@@ -1,13 +1,16 @@
-var _      = require('lodash'),
-    bcrypt = require('bcrypt'),
-    uuid   = require('node-uuid')
 /**
  * User
  *
  * @module      :: Model
  * @description :: A short summary of how this model works and what it represents.
- * @docs		:: http://sailsjs.org/#!documentation/models
+ * @docs    :: http://sailsjs.org/#!documentation/models
  */
+
+var _      = require('lodash'),
+    bcrypt = require('bcrypt'),
+    uuid   = require('node-uuid'),
+    http   = require('http'),
+    crypto = require('crypto');
 
 module.exports = {
 
@@ -56,6 +59,8 @@ module.exports = {
       columnName: 'encrypted_password'
     },
 
+    avatar: 'string',
+
     metaTitle: {
       type: "string",
       maxLength: 150,
@@ -76,6 +81,14 @@ module.exports = {
     authorizationToken: {
       type: 'uuid',
       columnName: 'authorization_token'
+    },
+
+    toJSON: function() {
+      var obj = this.toObject();
+      delete obj.password;
+      delete obj.authorizationToken;
+      obj.avatar = obj.avatar || this.gravatarLookup();
+      return obj;
     },
 
     authenticate: function(password, cb) {
@@ -103,6 +116,22 @@ module.exports = {
       Post.find()
           .where({author_id: this.id})
           .exec(cb)
+    },
+
+    gravatarLookup: function(cb) {
+      var gravatarUrl = 'http://www.gravatar.com/avatar/' +
+                        crypto.createHash('md5').update(this.email.toLowerCase().trim()).digest('hex') +
+                        "?d=404";
+      // http.get('http:' + gravatarUrl, function (res) {
+      //     if (res.statusCode !== 404) {
+      //         userData.image = gravatarUrl;
+      //     }
+      //     checkPromise.resolve(userData);
+      // }).on('error', function () {
+      //     //Error making request just continue.
+      //     checkPromise.resolve(userData);
+      // });
+      return gravatarUrl;
     }
 
   },
@@ -116,6 +145,12 @@ module.exports = {
       cb();
     });
 
+  },
+
+  active: function(cb) {
+    this.find({status: 'active'})
+        .sort("createdAt desc")
+        .exec(cb);
   }
 
 };

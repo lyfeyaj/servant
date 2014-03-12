@@ -94,10 +94,9 @@ module.exports = {
     });
   },
 
-  fetchPublishedPosts: function(cb) {
-    this.find()
-        .where({status: "published"})
-        .sort("createdAt")
+  published: function(cb) {
+    this.find({status: "published"})
+        .sort("createdAt desc")
         .exec(cb)
   }
 

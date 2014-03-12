@@ -15,9 +15,44 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
+var _ = require("lodash");
+
 module.exports = {
 
+  index: function(req, res) {
+    User.active(function(err, users){
+      if (err) return res.json({status: 404, errors: err});
+      if (!_.isEmpty(users)) {
+        res.json({status: 200, users: users});
+      } else {
+        res.json({status: 404, errors: 'Record not found!'});
+      }
+    });
+  },
 
+  find: function(req, res) {
+    User.findOne({username: req.param('id')})
+        .exec(function(err, user){
+          if (err) return res.json({status: 404, errors: err});
+          if (!_.isEmpty(user)) {
+            res.json({status: 200, user: user});
+          } else {
+            res.json({status: 404, errors: 'Record not found!'});
+          }
+        });
+  },
+
+  create: function(req, res) {
+
+  },
+
+  update: function(req, res) {
+
+  },
+
+  destroy: function(req, res) {
+
+  },
 
   /**
    * Overrides for the settings in `config/controllers.js`

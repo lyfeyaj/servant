@@ -15,27 +15,30 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
+var _ = require("lodash");
+
 module.exports = {
 
   // Fetch all published posts
   index: function(req, res) {
-    Post.fetchPublishedPosts(function(err, posts){
-      if (err) {
-        res.json({status: 404, errors: err});
+    Post.published(function(err, posts){
+      if (err) return res.json({status: 404, errors: err});
+      if (!_.isEmpty(posts)) {
+        res.json({status: 200, posts: posts});
       } else {
-        res.json(posts);
+        res.json({status: 404, errors: 'Record not found!'});
       }
     });
   },
 
   find: function(req, res) {
-    Post.findOne()
-        .where({_id: req.param('id')})
+    Post.findOne({permanentLink: req.param('id')})
         .exec(function(err, post){
-          if (err) {
-            res.json({status: 404, errors: err});
+          if (err) return res.json({status: 404, errors: err});
+          if (!_.isEmpty(post)) {
+            res.json({status: 200, post: post});
           } else {
-            res.json(post)
+            res.json({status: 404, errors: 'Record not found!'});
           }
         });
   },
