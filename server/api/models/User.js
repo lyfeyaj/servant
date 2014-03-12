@@ -14,11 +14,13 @@ module.exports = {
   tableName: 'users',
 
   attributes: {
+    id: function() {return this._id},
+
     uuid: {
       type: 'uuidv4',
       unique: true,
       index: true,
-      defaultsTo: uuid.v4()
+      defaultsTo: function(){return uuid.v4()}
     },
 
     username: {
@@ -95,6 +97,12 @@ module.exports = {
         if (err) return cb(err, false);
         cb(null, true);
       });
+    },
+
+    posts: function(cb) {
+      Post.find()
+          .where({author_id: this.id})
+          .exec(cb)
     }
 
   },

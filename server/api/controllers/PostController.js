@@ -2,7 +2,7 @@
  * PostController
  *
  * @module      :: Controller
- * @description	:: A set of functions called `actions`.
+ * @description :: A set of functions called `actions`.
  *
  *                 Actions contain code telling Sails how to respond to a certain type of request.
  *                 (i.e. do stuff, then send some JSON, show an HTML page, or redirect to another URL)
@@ -16,8 +16,41 @@
  */
 
 module.exports = {
-    
-  
+
+  // Fetch all published posts
+  index: function(req, res) {
+    Post.fetchPublishedPosts(function(err, posts){
+      if (err) {
+        res.json({status: 404, errors: err});
+      } else {
+        res.json(posts);
+      }
+    });
+  },
+
+  find: function(req, res) {
+    Post.findOne()
+        .where({_id: req.param('id')})
+        .exec(function(err, post){
+          if (err) {
+            res.json({status: 404, errors: err});
+          } else {
+            res.json(post)
+          }
+        });
+  },
+
+  create: function(req, res) {
+
+  },
+
+  update: function(req, res) {
+
+  },
+
+  destroy: function(req, res) {
+
+  },
 
 
   /**
@@ -26,5 +59,5 @@ module.exports = {
    */
   _config: {}
 
-  
+
 };

@@ -33,7 +33,7 @@ module.exports = {
       type: 'uuidv4',
       index: true,
       unique: true,
-      defaultsTo: uuid.v4()
+      defaultsTo: function(){return uuid.v4()}
     },
 
     title: {
@@ -92,6 +92,13 @@ module.exports = {
       values.html = content;
       next();
     });
+  },
+
+  fetchPublishedPosts: function(cb) {
+    this.find()
+        .where({status: "published"})
+        .sort("createdAt")
+        .exec(cb)
   }
 
 };
