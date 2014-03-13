@@ -94,6 +94,7 @@ module.exports = {
     });
   },
 
+  // Scope search
   published: function(cb) {
     this.find({status: "published"})
         .sort("createdAt desc")

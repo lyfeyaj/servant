@@ -87,7 +87,7 @@ module.exports = {
       var obj = this.toObject();
       delete obj.password;
       delete obj.authorizationToken;
-      obj.avatar = obj.avatar || this.gravatarLookup();
+      obj.avatar = obj.avatar || this.gravatar();
       return obj;
     },
 
@@ -118,7 +118,7 @@ module.exports = {
           .exec(cb)
     },
 
-    gravatarLookup: function(cb) {
+    gravatar: function(cb) {
       var gravatarUrl = 'http://www.gravatar.com/avatar/' +
                         crypto.createHash('md5').update(this.email.toLowerCase().trim()).digest('hex') +
                         "?d=404";

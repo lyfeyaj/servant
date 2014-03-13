@@ -25,7 +25,7 @@ module.exports = {
       if (!_.isEmpty(users)) {
         res.json({status: 200, users: users});
       } else {
-        res.json({status: 404, errors: 'Record not found!'});
+        res.json({status: 404, errors: res.i18n('noRecords')});
       }
     });
   },
@@ -37,7 +37,7 @@ module.exports = {
           if (!_.isEmpty(user)) {
             res.json({status: 200, user: user});
           } else {
-            res.json({status: 404, errors: 'Record not found!'});
+            res.json({status: 404, errors: res.i18n('noRecords')});
           }
         });
   },
