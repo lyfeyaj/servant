@@ -15,17 +15,15 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
-var _ = require("lodash");
-
 module.exports = {
 
   index: function(req, res) {
     User.active(function(err, users){
-      if (err) return res.json({status: 404, errors: err});
+      if (err) return res.json({status: 500, message: err});
       if (!_.isEmpty(users)) {
         res.json({status: 200, users: users});
       } else {
-        res.json({status: 404, errors: res.i18n('noRecords')});
+        res.json({status: 404, message: res.i18n('noRecords')});
       }
     });
   },
@@ -33,11 +31,11 @@ module.exports = {
   find: function(req, res) {
     User.findOne({username: req.param('id')})
         .exec(function(err, user){
-          if (err) return res.json({status: 404, errors: err});
+          if (err) return res.json({status: 500, message: err});
           if (!_.isEmpty(user)) {
             res.json({status: 200, user: user});
           } else {
-            res.json({status: 404, errors: res.i18n('noRecords')});
+            res.json({status: 404, message: res.i18n('noRecords')});
           }
         });
   },
@@ -50,6 +48,7 @@ module.exports = {
 
   },
 
+  // Inactive a user
   destroy: function(req, res) {
 
   },
@@ -58,7 +57,9 @@ module.exports = {
    * Overrides for the settings in `config/controllers.js`
    * (specific to UserController)
    */
-  _config: {}
+  _config: {
+
+  }
 
 
 };

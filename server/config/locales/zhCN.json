@@ -1,3 +1,9 @@
 {
-  "noRecords": "没有符合条件的记录"
+  "noRecords": "没有符合条件的记录",
+  "authenticationFailed": "您还没有登陆, 请登录以访问此资源",
+  "alreadySignin": "您已登录, 不能重复登录",
+  "userNotExisted": "没有此用户名或邮箱",
+  "unmatchedPassword": "密码不正确",
+  "userSignoutSuccess": "您已成功登出",
+  "usernameEmailOrPasswordEmpty": "用户名(邮箱)或者密码不能为空"
 }

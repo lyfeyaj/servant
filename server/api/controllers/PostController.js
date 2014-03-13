@@ -15,8 +15,6 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
-var _ = require("lodash");
-
 module.exports = {
 
   // Fetch all published posts
@@ -48,7 +46,15 @@ module.exports = {
   },
 
   update: function(req, res) {
+    // Post.findOne({permanentLink: req.body.id})
+    //     .exec(function(err, post){
+    //       if (err) return res.json({status: 404, errors: err});
+    //       if (!_.isEmpty(post)) {
+    //         post.
+    //       } else {
 
+    //       }
+    //     })
   },
 
   destroy: function(req, res) {

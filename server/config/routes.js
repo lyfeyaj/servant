@@ -4,7 +4,6 @@ module.exports.routes = {
 
   // UserController
   // User authentication actions
-  'post /signup': 'UsersController.signup',
-  'post /signin': 'UsersController.signin',
-  'post /signout': 'UsersController.signout'
+  'post /signin': 'SessionController.signin',
+  'delete /signout': 'SessionController.signout'
 };
