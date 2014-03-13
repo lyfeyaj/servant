@@ -23,7 +23,7 @@ module.exports = {
           if (err) return res.json({status: 500, message: err});
           if (matched) {
             req.session.currentUser = user;
-            res.json({status: 200, user: user});
+            res.json({status: 200, authorizationToken: user.authorizationToken});
           } else {
             res.json({status: 401, message: res.i18n('unmatchedPassword')});
           }
