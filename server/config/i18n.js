@@ -12,9 +12,8 @@
 module.exports.i18n = {
 
   // Which locales are supported?
-  locales: ['zhCN', 'en', 'es', 'fr', 'de'],
+  locales: ['zh-CN', 'en', 'es', 'fr', 'de'],
 
-  defaultLocale: 'zhCN',
-  locale: 'zhCN'
+  defaultLocale: 'zh-CN'
 
 };

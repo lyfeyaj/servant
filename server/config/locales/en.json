@@ -1,3 +1,9 @@
 {
-  "noRecords": "No records found!"
+  "noRecords": "No records found!",
+  "authenticationFailed": "Please login to visit this resource",
+  "alreadySignin": "You have already signed in",
+  "userNotExisted": "Username or email not exist",
+  "unmatchedPassword": "Password is invalid",
+  "userSignoutSuccess": "You are successfully signed out",
+  "usernameEmailOrPasswordEmpty": "Username or email can not be empty"
 }
