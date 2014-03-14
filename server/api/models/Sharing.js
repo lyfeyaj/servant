@@ -9,6 +9,7 @@
 var uuid = require('node-uuid');
 
 module.exports = {
+  tableName: 'sharings',
 
   attributes: {
     uuid: {
@@ -45,7 +46,8 @@ module.exports = {
     permissionType: {
       type: 'string',
       defaultsTo: 'read',
-      in: ['read', 'write']
+      in: ['read', 'write'],
+      columnName: 'permission_type'
     }
   }
 
