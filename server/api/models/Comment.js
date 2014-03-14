@@ -23,14 +23,41 @@ module.exports = {
       maxLength: 150
     },
 
+    rawContent: {
+      type: 'text',
+      defaultsTo: '',
+      columnName: 'raw_content'
+    },
+
     content: {
       type: 'text',
       defaultsTo: ''
     },
 
-    state: {
+    // commentable is refer to something that is commemtable
+    commentableState: {
       type: 'string',
-      defaultsTo: 'draft'
+      columnName: 'commentable_state'
+    },
+
+    commentableType: {
+      type: 'string',
+      columnName: 'commentable_type'
+    },
+
+    commentableUrl: {
+      type: 'string',
+      columnName: 'commentable_url'
+    },
+
+    commentableTitle: {
+      type: 'string',
+      columnName: 'commentable_title'
+    },
+
+    commentableId: {
+      type: 'string',
+      columnName: 'commentable_id'
     },
 
     ip: 'ip',
@@ -46,11 +73,6 @@ module.exports = {
       columnName: 'user_id'
     },
 
-    postId: {
-      type: 'string',
-      columnName: 'post_id'
-    },
-
     spam: {
       type: 'boolean',
       defaultsTo: false
@@ -59,8 +81,17 @@ module.exports = {
     depth: {
       type: 'integer',
       defaultsTo: 0
-    }
+    },
 
+    state: {
+      type: 'string',
+      defaultsTo: 'draft'
+    },
+
+    parentId: {
+      type: 'string',
+      columnName: 'parant_id'
+    }
   }
 
 };
