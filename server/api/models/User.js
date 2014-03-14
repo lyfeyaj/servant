@@ -119,9 +119,10 @@ module.exports = {
     },
 
     gravatar: function(cb) {
-      var gravatarUrl = 'http://www.gravatar.com/avatar/' +
-                        crypto.createHash('md5').update(this.email.toLowerCase().trim()).digest('hex') +
-                        "?d=404";
+      var md5 = crypto.createHash('md5');
+      var gravatarUrl = '//www.gravatar.com/avatar/' +
+                        md5.update(this.email.toLowerCase().trim()).digest('hex');
+                        // "?d=404";
       // http.get('http:' + gravatarUrl, function (res) {
       //     if (res.statusCode !== 404) {
       //         userData.image = gravatarUrl;
@@ -131,7 +132,7 @@ module.exports = {
       //     //Error making request just continue.
       //     checkPromise.resolve(userData);
       // });
-      return gravatarUrl;
+      return 'http:' + gravatarUrl;
     }
 
   },

@@ -77,9 +77,10 @@ module.exports = {
       columnName: 'meta_description'
     },
 
+    // `public` or `private`
     status: {
       type: 'string',
-      defaultsTo: 'draft'
+      defaultsTo: 'private'
     }
 
   },
@@ -96,7 +97,7 @@ module.exports = {
 
   // Scope search
   published: function(cb) {
-    this.find({status: "published"})
+    this.find({status: "public"})
         .sort("createdAt desc")
         .exec(cb)
   }
