@@ -33,11 +33,6 @@ module.exports = {
       defaultsTo: ''
     },
 
-    parentId: {
-      type: 'string',
-      columnName: 'parent_id'
-    },
-
     metaTitle: {
       type: "string",
       maxLength: 150,
@@ -48,6 +43,16 @@ module.exports = {
       type: "string",
       maxLength: 200,
       columnName: 'meta_description'
+    },
+
+    parent: {
+      model: 'tag',
+      columnName: 'parent_id'
+    },
+
+    children: {
+      collection: 'tag',
+      via: 'parent'
     }
 
   }
