@@ -1,9 +1,5 @@
 /**
  * Comment
- *
- * @module      :: Model
- * @description :: A short summary of how this model works and what it represents.
- * @docs		:: http://sailsjs.org/#!documentation/models
  */
 var uuid = require('node-uuid');
 
@@ -69,29 +65,36 @@ module.exports = {
       maxLength: 150
     },
 
-    userId: {
-      type: 'string',
-      columnName: 'user_id'
-    },
-
-    spam: {
-      type: 'boolean',
-      defaultsTo: false
-    },
-
     depth: {
       type: 'integer',
       defaultsTo: 0
     },
 
+    // `confirmed` or `spam` or `draft`
     state: {
       type: 'string',
       defaultsTo: 'draft'
     },
 
-    parentId: {
+    user: {
+      model: 'user',
+      columnName: 'user_id'
+    },
+
+    post: {
+      model: 'post',
+      columnName: 'post_id'
+    },
+
+    parent: {
+      model: 'comment',
       type: 'string',
       columnName: 'parant_id'
+    },
+
+    children: {
+      collection: 'comment',
+      via: 'parent'
     }
   }
 

@@ -1,12 +1,9 @@
 /**
  * Sharing
- *
- * @module      :: Model
- * @description :: A short summary of how this model works and what it represents.
- * @docs		:: http://sailsjs.org/#!documentation/models
  */
 
-var uuid = require('node-uuid');
+var uuid   = require('node-uuid'),
+    crypto = require('crypto');
 
 module.exports = {
   tableName: 'sharings',
@@ -48,6 +45,13 @@ module.exports = {
       defaultsTo: 'read',
       in: ['read', 'write'],
       columnName: 'permission_type'
+    },
+
+    // Add password authentication when trying to
+    // share a content to non-registered people
+    password: {
+      type: 'string',
+      defaultsTo: function() {crypto.randomBytes(4).toString('hex')}
     }
   }
 
