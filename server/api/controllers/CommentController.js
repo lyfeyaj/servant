@@ -16,8 +16,31 @@
  */
 
 module.exports = {
-    
-  
+
+  // Fetch all comments
+  index: function(req, res) {
+    Comment.find().exec(function(err, comments){
+      if (err) return res.serverError(err);
+      if (!_.isEmpty(comments)) {
+        res.json({status: 200, comments: comments});
+      } else {
+        res.notFound();
+      }
+    });
+  },
+
+  find: function(req, res) {
+    Comment.findOne({permanentLink: req.param('id')})
+        .exec(function(err, comment){
+          if (err) return res.serverError(err);
+          if (!_.isEmpty(comment)) {
+            res.json({status: 200, comment: comment});
+          } else {
+            res.notFound();
+          }
+        });
+  },
+
 
 
   /**
@@ -26,5 +49,5 @@ module.exports = {
    */
   _config: {}
 
-  
+
 };

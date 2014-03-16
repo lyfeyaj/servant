@@ -31,12 +31,6 @@ module.exports = {
       defaultsTo: ''
     },
 
-    // commentable is refer to something that is commemtable
-    commentableState: {
-      type: 'string',
-      columnName: 'commentable_state'
-    },
-
     commentableType: {
       type: 'string',
       columnName: 'commentable_type'
@@ -50,11 +44,6 @@ module.exports = {
     commentableTitle: {
       type: 'string',
       columnName: 'commentable_title'
-    },
-
-    commentableId: {
-      type: 'string',
-      columnName: 'commentable_id'
     },
 
     ip: 'ip',
@@ -76,6 +65,7 @@ module.exports = {
       defaultsTo: 'draft'
     },
 
+    // Associations
     user: {
       model: 'user',
       columnName: 'user_id'
