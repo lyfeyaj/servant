@@ -1,13 +1,8 @@
 /**
  * User
- *
- * @module      :: Model
- * @description :: A short summary of how this model works and what it represents.
- * @docs    :: http://sailsjs.org/#!documentation/models
  */
 
-var _      = require('lodash'),
-    bcrypt = require('bcrypt'),
+var bcrypt = require('bcrypt'),
     uuid   = require('node-uuid'),
     http   = require('http'),
     crypto = require('crypto');
@@ -17,8 +12,6 @@ module.exports = {
   tableName: 'users',
 
   attributes: {
-    id: function() {return this._id},
-
     uuid: {
       type: 'uuidv4',
       unique: true,
@@ -81,6 +74,11 @@ module.exports = {
     authorizationToken: {
       type: 'uuid',
       columnName: 'authorization_token'
+    },
+
+    comments: {
+      collection: 'comment',
+      via: 'user'
     },
 
     toJSON: function() {
