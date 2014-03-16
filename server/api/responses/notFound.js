@@ -3,7 +3,7 @@
  *
  * Usage:
  * return res.notFound();
- * 
+ *
  * NOTE:
  * If no user-defined route, blueprint route, or static file matches
  * the requested URL, Sails will call `res.notFound()`.
@@ -19,7 +19,8 @@ module.exports = function notFound() {
   var viewFilePath = '404';
   var statusCode = 404;
   var result = {
-    status: statusCode
+    status: statusCode,
+    message: res.i18n('notFound')
   };
 
   // If the user-agent wants a JSON response, send json

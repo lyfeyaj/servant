@@ -1,5 +1,5 @@
 {
-  "noRecords": "No records found!",
+  "notFound": "No records found!",
   "authenticationFailed": "Please login to visit this resource",
   "alreadySignin": "You have already signed in",
   "userNotExisted": "Username or email not exist",

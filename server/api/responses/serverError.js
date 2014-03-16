@@ -1,6 +1,6 @@
 /**
  * 500 (Server Error) Handler
- * 
+ *
  * Usage:
  * return res.serverError(err);
  *
@@ -23,10 +23,11 @@ module.exports = function serverError (errors) {
     i, errorToLog, errorToJSON;
 
   var result = {
-    status: statusCode
+    status: statusCode,
+    message: JSON.stringify(errors)
   };
 
-  // Normalize a {String|Object|Error} or array of {String|Object|Error} 
+  // Normalize a {String|Object|Error} or array of {String|Object|Error}
   // into an array of proper, readable {Error}
   var errorsToDisplay = sails.util.normalizeErrors(errors);
   for (i in errorsToDisplay) {

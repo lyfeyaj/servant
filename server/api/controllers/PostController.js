@@ -20,11 +20,11 @@ module.exports = {
   // Fetch all published posts
   index: function(req, res) {
     Post.published(function(err, posts){
-      if (err) return res.json({status: 404, errors: err});
+      if (err) return res.serverError(err);
       if (!_.isEmpty(posts)) {
         res.json({status: 200, posts: posts});
       } else {
-        res.json({status: 404, errors: 'Record not found!'});
+        res.notFound();
       }
     });
   },
@@ -32,11 +32,11 @@ module.exports = {
   find: function(req, res) {
     Post.findOne({permanentLink: req.param('id')})
         .exec(function(err, post){
-          if (err) return res.json({status: 404, errors: err});
+          if (err) return res.serverError(err);
           if (!_.isEmpty(post)) {
             res.json({status: 200, post: post});
           } else {
-            res.json({status: 404, errors: 'Record not found!'});
+            res.notFound();
           }
         });
   },

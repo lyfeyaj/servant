@@ -17,10 +17,10 @@ module.exports = {
         { email: req.body.usernameOrEmail }
       ]
     }).exec(function(err, user){
-      if (err) return res.json({status: 500, message: err});
+      if (err) return res.serverError(err);
       if (!_.isEmpty(user)) {
         user.authenticate(req.body.password, function(err, matched){
-          if (err) return res.json({status: 500, message: err});
+          if (err) return res.serverError(err);
           if (matched) {
             req.session.currentUser = user;
             res.json({status: 200, authorizationToken: user.authorizationToken});

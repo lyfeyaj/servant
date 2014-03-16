@@ -6,11 +6,11 @@ module.exports = {
 
   index: function(req, res) {
     User.active(function(err, users){
-      if (err) return res.json({status: 500, message: err});
+      if (err) return res.serverError(err);
       if (!_.isEmpty(users)) {
         res.json({status: 200, users: users});
       } else {
-        res.json({status: 404, message: res.i18n('noRecords')});
+        res.notFound();
       }
     });
   },
@@ -18,11 +18,11 @@ module.exports = {
   find: function(req, res) {
     User.findOne({username: req.param('id')})
         .exec(function(err, user){
-          if (err) return res.json({status: 500, message: err});
+          if (err) return res.serverError(err);
           if (!_.isEmpty(user)) {
             res.json({status: 200, user: user});
           } else {
-            res.json({status: 404, message: res.i18n('noRecords')});
+            res.notFound();
           }
         });
   },

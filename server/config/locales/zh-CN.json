@@ -1,5 +1,5 @@
 {
-  "noRecords": "没有符合条件的记录",
+  "notFound": "没有符合条件的记录",
   "authenticationFailed": "您还没有登陆, 请登录以访问此资源",
   "alreadySignin": "您已登录, 不能重复登录",
   "userNotExisted": "没有此用户名或邮箱",
