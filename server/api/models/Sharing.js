@@ -16,30 +16,6 @@ module.exports = {
       defaultsTo: function(){return uuid.v4()}
     },
 
-    // People to share with
-    shareWith: {
-      type: 'string',
-      columnName: 'share_with'
-    },
-
-    // Post shared by who
-    sharedBy: {
-      type: 'string',
-      columnName: 'shared_by'
-    },
-
-    // Content to be shared: such as a `Post`
-    shareableId: {
-      type: 'string',
-      columnName: 'shareable_id'
-    },
-
-    // Content type: such as `Post`
-    shareableType: {
-      type: 'string',
-      columnName: 'shareable_type'
-    },
-
     permissionType: {
       type: 'string',
       defaultsTo: 'read',
@@ -52,6 +28,25 @@ module.exports = {
     password: {
       type: 'string',
       defaultsTo: function() {crypto.randomBytes(4).toString('hex')}
+    },
+
+    // Associations
+    // People to share with
+    shareWith: {
+      model: 'user',
+      columnName: 'share_with'
+    },
+
+    // Post shared by who
+    sharedBy: {
+      model: 'user',
+      columnName: 'shared_by'
+    },
+
+    // Content to be shared: such as a `Post`
+    sharedPost: {
+      model: 'post',
+      columnName: 'shared_post'
     }
   }
 

@@ -56,8 +56,8 @@ module.exports = {
       defaultsTo: ''
     },
 
-    authorId: {
-      type: 'string',
+    author: {
+      model: 'user',
       columnName: 'author_id'
     },
 
@@ -79,17 +79,31 @@ module.exports = {
       defaultsTo: 'private'
     },
 
+    // Associations
     comments: {
       collection: 'comment',
       via: 'post'
+    },
+
+    sharings: {
+      collection: 'sharing',
+      via: 'sharedPost'
     }
 
   },
 
-  afterValidation: function(values, next) {
+  beforeCreate: function(values, next) {
     // Convert markdown to html
     marked(values.markdown, function(err, content){
-      console.log(content);
+      if (err) return next(err);
+      values.html = content;
+      next();
+    });
+  },
+
+  beforeUpdate: function(values, next) {
+    // Convert markdown to html
+    marked(values.markdown, function(err, content){
       if (err) return next(err);
       values.html = content;
       next();
@@ -101,6 +115,6 @@ module.exports = {
     this.find({status: "public"})
         .sort("createdAt desc")
         .exec(cb)
-  }
+  },
 
 };

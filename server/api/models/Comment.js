@@ -88,13 +88,11 @@ module.exports = {
 
     parent: {
       model: 'comment',
-      type: 'string',
       columnName: 'parant_id'
     },
 
-    children: {
-      collection: 'comment',
-      via: 'parent'
+    child: {
+      model: 'comment'
     }
   }
 

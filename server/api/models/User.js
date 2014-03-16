@@ -40,11 +40,13 @@ module.exports = {
       minLength: 4
     },
 
+    // Indicate that a user is active or not
     status: {
       type: 'string',
       defaultsTo: 'active'
     },
 
+    // Password that encrypted by Bcrypt
     password: {
       type: 'string',
       minLength: 6,
@@ -76,16 +78,41 @@ module.exports = {
       columnName: 'authorization_token'
     },
 
+    // Associations
+    // +Comments+: comments made by a user
     comments: {
       collection: 'comment',
       via: 'user'
     },
 
+    // +Posts+: posts created by a user
+    posts: {
+      collection: 'post',
+      via: 'author'
+    },
+
+    // User's sharings to other users
+    sharings: {
+      collection: 'sharing',
+      via: 'sharedBy'
+    },
+
+    // Shared posts by other users to me
+    shareds: {
+      collection: 'sharing',
+      via: 'shareWith'
+    },
+
+    // Instance methods
     toJSON: function() {
       var obj = this.toObject();
       delete obj.password;
       delete obj.authorizationToken;
-      obj.avatar = obj.avatar || this.gravatar();
+      delete obj.email;
+      delete obj.name;
+      obj.avatar = _.isEmpty(obj.avatar)
+                  ? obj.avatar
+                  : this.gravatar();
       return obj;
     },
 
@@ -108,12 +135,6 @@ module.exports = {
         if (err) return cb(err, false);
         cb(null, true);
       });
-    },
-
-    posts: function(cb) {
-      Post.find()
-          .where({author_id: this.id})
-          .exec(cb)
     },
 
     gravatar: function(cb) {
