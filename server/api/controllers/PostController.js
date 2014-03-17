@@ -19,7 +19,7 @@ module.exports = {
 
   // Fetch all published posts
   index: function(req, res) {
-    Post.published(function(err, posts){
+    Post.search(req.params.all(), function(err, posts){
       if (err) return res.serverError(err);
       if (!_.isEmpty(posts)) {
         res.json({status: 200, posts: posts});
