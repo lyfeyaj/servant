@@ -129,11 +129,17 @@ module.exports = {
     var searchQuery = this.find();
     searchQuery.where({or: [{ status: 'public' }, { author: userId }]});
     searchQuery.where({or: [{ title: { contains: searchText }}, { html: { contans: searchText }}]});
-    searchQuery.sort("createdAt desc")
-               .paginate({page: page, limit: limit});
-    if (params.author) searchQuery.populate('author', {username: params.author});
-    searchQuery.exec(cb);
-
+    searchQuery.sort("createdAt desc").paginate({page: page, limit: limit});
+    if (params.author) {
+      User.findOne({ username: params.author })
+          .then(function(user){
+            if (user) return searchQuery.where({author: user.id}).exec(cb);
+            cb();
+          })
+          .fail(cb);
+    } else {
+      searchQuery.exec(cb);
+    }
   },
 
 };
