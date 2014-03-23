@@ -117,7 +117,7 @@ module.exports = {
 //     page: 1;
 //     search: text;
 //     author: lyfeyaj;
-    sails.log.info(JSON.stringify(params));
+    sails.log.info("Searching Post by: " + JSON.stringify(params));
     var limit = 10,
         page  = 1,
         userId = '',

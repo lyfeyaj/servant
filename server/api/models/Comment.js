@@ -1,7 +1,22 @@
 /**
  * Comment
  */
-var uuid = require('node-uuid');
+var marked = require("marked"),
+    uuid   = require('node-uuid');
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false,
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  }
+});
 
 module.exports = {
   tableName: 'comments',
@@ -84,6 +99,24 @@ module.exports = {
     child: {
       model: 'comment'
     }
+  },
+
+  beforeCreate: function(values, next) {
+    // Convert markdown to html
+    marked(values.rawContent, function(err, content){
+      if (err) return next(err);
+      values.content = content;
+      next();
+    });
+  },
+
+  beforeUpdate: function(values, next) {
+    // Convert markdown to html
+    marked(values.rawContent, function(err, content){
+      if (err) return next(err);
+      values.content = content;
+      next();
+    });
   }
 
 };
