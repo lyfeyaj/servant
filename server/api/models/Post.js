@@ -112,28 +112,23 @@ module.exports = {
 
   // Scope search
   search: function(params, cb) {
-//     order: `:attribute-:asc`, example: ?order=createdAt-desc;
-//     per_page: 10;
-//     page: 1;
-//     search: text;
-//     author: lyfeyaj;
     sails.log.info(JSON.stringify(params));
     var limit = 10,
         page  = 1,
         userId = '',
-        searchText = '';
+        searchText = '',
+        order = 'createdAt desc';
     if (params.per_page) limit = params.per_page;
     if (params.page) page = params.page;
     if (params.userId) userId = params.userId;
     if (params.search) searchText = params.search;
+    if (params.order) order = params.order.replace('-', ' ');
     var searchQuery = this.find();
     searchQuery.where({or: [{ status: 'public' }, { author: userId }]});
     searchQuery.where({or: [{ title: { contains: searchText }}, { html: { contans: searchText }}]});
-    searchQuery.sort("createdAt desc")
-               .paginate({page: page, limit: limit});
+    searchQuery.sort(order).paginate({page: page, limit: limit});
     if (params.author) searchQuery.populate('author', {username: params.author});
     searchQuery.exec(cb);
-
   },
 
 };
