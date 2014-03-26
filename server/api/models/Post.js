@@ -112,7 +112,12 @@ module.exports = {
 
   // Scope search
   search: function(params, cb) {
-    sails.log.info(JSON.stringify(params));
+//     order: `:attribute-:asc`, example: ?order=createdAt-desc;
+//     per_page: 10;
+//     page: 1;
+//     search: text;
+//     author: lyfeyaj;
+    sails.log.info("Searching Post by: " + JSON.stringify(params));
     var limit = 10,
         page  = 1,
         userId = '',
@@ -127,8 +132,16 @@ module.exports = {
     searchQuery.where({or: [{ status: 'public' }, { author: userId }]});
     searchQuery.where({or: [{ title: { contains: searchText }}, { html: { contans: searchText }}]});
     searchQuery.sort(order).paginate({page: page, limit: limit});
-    if (params.author) searchQuery.populate('author', {username: params.author});
-    searchQuery.exec(cb);
+    if (params.author) {
+      User.findOne({ username: params.author })
+          .then(function(user){
+            if (user) return searchQuery.where({author: user.id}).exec(cb);
+            cb();
+          })
+          .fail(cb);
+    } else {
+      searchQuery.exec(cb);
+    }
   },
 
 };
