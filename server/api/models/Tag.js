@@ -55,6 +55,35 @@ module.exports = {
       via: 'parent'
     }
 
+  },
+
+  idsFromToken: function(tokens, cb) {
+    // TODO
+  },
+
+  tokens: function(q, cb) {
+    var tags = [];
+    var searchText = new RegExp(q);
+    this.find({name: searchText})
+        .sort("createdAt desc")
+        .exec(function(err, results) {
+          if (err) return cb(err);
+          tags = _.map(results, function(tag) {
+            return {name: tag.name, slug: tag.slug}
+          });
+          Tag.find({name: q}).done(function(err, tag) {
+            if (err) return cb(err);
+            if (_.isEmpty(tag)) {
+              var name = "<<<" + q + ">>>";
+              tags.push({id: name, name: q});
+            }
+            if (cb) {
+              return cb(err, tags);
+            } else {
+              return tags;
+            }
+          });
+        });
   }
 
 };

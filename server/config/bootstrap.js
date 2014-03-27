@@ -13,8 +13,9 @@ module.exports.bootstrap = function (cb) {
   // It's very important to trigger this callack method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   async.series([
-    createUsers(),
-    createPosts()
+    // createUsers(),
+    // createTags()
+    // createPosts()
   ], function(err, values){
     if (err) return sails.log.error(JSON.stringify(err));
   });
@@ -44,6 +45,15 @@ function createUsers() {
   ];
   createSample('User', 'username', users);
 };
+
+function createTags() {
+  var tag_names = ['lyfeyaj', 'shmily', 'edgepeek', 'github', 'ruby', 'ticket', 'sails'];
+  var tags = [];
+  _.forEach(tag_names, function(el) {
+    tags.push({name: el, slug: el});
+  });
+  createSample('Tag', 'slug', tags);
+}
 
 function createPosts() {
   User.find().exec(function(err, authors) {
